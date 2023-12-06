@@ -45,10 +45,12 @@ public class C02Variable {
 //            System.out.println("조건식이 참입니다.");
 //        }
 
-//         묵시적 타입변환
+// //         묵시적 타입변환
 //        char ch1 = 'a';
 //        int ch1_num = ch1;
 //        System.out.println("ch1_num = " + ch1_num);
+// //         char형 알파벳 비교를 위한 묵시적 타입변환이 일어난다.
+//         System.out.println('A' > 'a');
 
 //        int my_int1 = 10;
 ////         int -> double
