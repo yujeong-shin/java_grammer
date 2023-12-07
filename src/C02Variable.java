@@ -84,8 +84,11 @@ public class C02Variable {
 //        변수값 변경
         a1 = 20;
 //        선언만 한 뒤에 나중에 초기화
-        int a2; //선언만 됐을 때는 값이 0으로 초기화
+        int a2; //선언만 됐을 때는 값이 0으로 초기화되지 않으나, 객체로 선언될 때는 0으로 초기화
         a2 = 20;
+//        객체로 만들때는 0으로 초기화
+        char[] arr = new char[5];
+        System.out.println(arr[0]);
 //        상수는 값의 재할당이 불가능
         final int AGES = 20;
 //        상수는 값의 변경이 불가능 -> AGES = 20; 에러 발생
