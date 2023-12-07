@@ -122,5 +122,48 @@ public class C05LoopStatements {
 //            }
 //            System.out.println();
 //        }
+
+
+////        라벨문
+//        loop1:
+//        for(int i=0; i<5; i++){
+//            loop2:
+//            for(int j=0; j<5; j++){
+//                System.out.println("hello world");
+//                if(j==2)
+//                    //break;
+//                    break loop1;
+//            }
+//        }
+
+////        라벨문 활용1
+//        int[][] matrix = {{1,2,3,4},{5,6,7,8,9},{9,10,11},{12,13,14,15,16}};
+//        int target = 11;
+//        loop1:
+//        for (int i = 0; i < matrix.length; i++) {
+//            loop2:
+//            for (int j = 0; j < matrix[i].length; j++) {
+//                if(matrix[i][j]==target){
+//                    System.out.println("matrix[" + i + "][" + j + "]에 있는 값입니다");
+//                    break loop1;
+//                }
+//            }
+//        }
+
+//        라벨문 활용2
+//        1~20 숫자 중, 약수가 5개 이상인 숫자 중에 가장 작은 값을 구하시오.
+
+//        loop1:
+//        for (int i = 1; i <= 20; i++) {
+//            int count=0;
+//            for (int j = 1; j <= i; j++) {
+//                if(i%j==0) count++;
+//                if(count==5) {
+//                    System.out.println(i);
+//                    break loop1;
+//                }
+//            }
+//        }
+
     }
 }
