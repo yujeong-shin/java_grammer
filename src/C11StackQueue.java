@@ -130,24 +130,25 @@ public class C11StackQueue {
 //            System.out.println(pq.poll());
 //        }
 
-        int[] scoville = {1, 2, 3, 9, 10, 12};
-        int K = 7;
-        int answer = 0;
-        Queue<Integer> myQue = new PriorityQueue<>();
-        //List 생성
-        for(int num : scoville) myQue.add(num);
-
-        while(true){
-            if(myQue.peek() >= K) break;
-            else if(myQue.size()==1 && myQue.peek() < K) {
-                answer = -1;
-                break;
-            }
-            else{
-                answer++;
-                int temp = myQue.poll() +  myQue.poll()*2;
-                myQue.add(temp);
-            }
-        }
+//        프로그래머스 - 더 맵게 문제
+//        int[] scoville = {1, 2, 3, 9, 10, 12};
+//        int K = 7;
+//        int answer = 0;
+//        Queue<Integer> myQue = new PriorityQueue<>();
+//        //List 생성
+//        for(int num : scoville) myQue.add(num);
+//
+//        while(true){
+//            if(myQue.peek() >= K) break;
+//            else if(myQue.size()==1 && myQue.peek() < K) {
+//                answer = -1;
+//                break;
+//            }
+//            else{
+//                answer++;
+//                int temp = myQue.poll() +  myQue.poll()*2;
+//                myQue.add(temp);
+//            }
+//        }
     }
 }
