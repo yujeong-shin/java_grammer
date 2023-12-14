@@ -1,7 +1,8 @@
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
 
-public class C11StackQueue {
+public class C11StackQueueDeque {
     public static void main(String[] args) {
 //        Stack<Integer> mySt = new Stack<>();
 //        mySt.push(10);
@@ -150,5 +151,87 @@ public class C11StackQueue {
 //                myQue.add(temp);
 //            }
 //        }
+
+////        ArrayDeque : 양방향에서 데이터를 삽입 / 제거할 수 있다.
+////        성능 빠름.
+//        Deque<Integer> myDeque = new ArrayDeque<>();
+//        myDeque.addFirst(10);
+//        myDeque.addFirst(20);//20,10
+//        System.out.println(myDeque);
+//        myDeque.addLast(30);
+//        System.out.println(myDeque);//20,10,30
+//
+//        System.out.println(myDeque.pollFirst());//20
+//        System.out.println(myDeque.pollLast());//30
+//        System.out.println(myDeque);
+        boolean answer = true;
+        String s = "()())";
+        Stack<Character> stack = new Stack<>();
+//        for(char c : s.toCharArray()){
+//            if(c=='(') stack.push(c);
+//            else {
+//                if(stack.isEmpty()) answer=false;
+//                else stack.pop();
+//            }
+//        }
+//        if(!stack.isEmpty()) answer=false;
+//
+//        System.out.println(answer);
+
+////      종승이 코드 고치기.... 효율성 2번 미통과ㅠ
+//        for (int i = 0; i < s.length(); i++) {
+//            if(s.charAt(i)=='('){
+//                stack.push(s.charAt(i));
+//            }
+//            else{
+//                if(stack.isEmpty()){
+//                    stack.push(s.charAt(i));
+//                }
+//                else {
+//                    if(stack.peek()=='('){
+//                        stack.pop();
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println(stack.isEmpty()? true:false);
+
+////         Deque로 풀기 - 강사님 풀이
+//        Deque<Character> myDeque = new ArrayDeque<>();
+//        for (int i = 0; i < s.length(); i++) {
+//            if(myDeque.isEmpty()){
+//                myDeque.addLast(s.charAt(i));
+//                if(s.charAt(i)==')'){
+//                    answer = false;
+//                    break;
+//                }
+//            }
+//            else{
+//                if(myDeque.peekLast()=='(' && s.charAt(i)==')'){
+//                    myDeque.pollLast();
+//                }else{
+//                    myDeque.addLast(s.charAt(i));
+//                }
+//            }
+//        }
+//        if(!myDeque.isEmpty()) answer = false;
+
+////      훈쓰앤재영쓰 코드 크으.......... 치인다.
+//        String str = "(())()";
+//        int open=0;
+//        int close=0;
+//        for (int i = 0; i < str.length(); i++) {
+//            if(str.charAt(i)=='('){
+//                open++;
+//            }
+//            else if(str.charAt(i)=='(') {
+//                close++;
+//            }
+//            if(open<close) {
+//                return false;
+//            }
+//        }
+//        if(open == close) return true;
+
     }
 }
