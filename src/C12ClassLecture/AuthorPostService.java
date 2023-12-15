@@ -11,8 +11,8 @@ public class AuthorPostService {
 
         while(true){
             Scanner sc = new Scanner(System.in);
-            int number = Integer.parseInt(sc.nextLine());
             System.out.println("1번:회원가입, 2번:게시글작성, 3번:회원목록조회, 4번:회원상세조회, 5번:게시글상세조회 ");
+            int number = Integer.parseInt(sc.nextLine());
             switch (number){
                 case 1:
                     System.out.println("회원가입하실 이름을 입력해주세요");
@@ -22,42 +22,64 @@ public class AuthorPostService {
                     Author author1 = new Author(name, email);
                     authors.add(author1);
                     break;
+
                 case 2:
+                    System.out.println("이메일을 입력해주세요");
+                    String author_email = sc.nextLine();
+                    // Author 객체 찾기
+                    Author writer = null;
+                    for(Author a : authors){
+                        if(a.getEmail().equals(author_email)) {
+                            writer = a;
+                            break;
+                        }
+                    }
+                    if(writer==null){
+                        System.out.println("없는 사용자입니다");
+                        continue;
+                    }
+
                     System.out.println("게시글명을 입력해주세요");
                     String title = sc.nextLine();
                     System.out.println("게시글 내용을 입력해주세요");
                     String contents = sc.nextLine();
-                    System.out.println("작성자 id를 입력해주세요");
-                    Long id = Long.parseLong(sc.nextLine());
-                    Post post1 = new Post(title, contents, id);
+
+                    Post post1 = new Post(writer, title, contents);
                     posts.add(post1);
                     break;
+
 //                    회원목록조회
                 case 3:
                     for(Author a : authors){
                         System.out.println(a.getEmail());
                     }
                     break;
+
 //                    회원상세조회 : 이름, email, 작성글수
                 case 4:
-                    System.out.println("author email를 입력해주세요");
-                    String author_email = sc.nextLine();
-                    Author temp_author = null;
+                    System.out.println("author email을 입력해주세요");
+                    String author_email2 = sc.nextLine();
+
+                    Author author = null;
                     for(Author a : authors){
-                        if(a.getId().equals(author_email)){
-                            temp_author = a;
+                        if(a.getEmail().equals(author_email2)) {
+                            author = a;
                             break;
                         }
                     }
+
                     int count = 0;
                     for(Post p : posts){
-                        if(p.getAuthor_id() == temp_author.getId()){
+                        if(p.getAuthor() == author) {
                             count++;
                         }
                     }
-                    System.out.println(temp_author.getName() + " " + temp_author.getEmail() + " " + count);
+                    System.out.println("회원명 : " + author.getName() +
+                            "\n회원이메일 : " + author.getEmail() +
+                            "\n글 작성수" + count);
 
                     break;
+
 //                    게시글상세조회
                 case 5:
                     System.out.println("post id를 입력해주세요");
@@ -69,14 +91,17 @@ public class AuthorPostService {
                             break;
                         }
                     }
-                    Author temp_post_author = null;
-                    for(Author a : authors){
-                        if(a.getId() == temp_post.getAuthor_id()){
-                            temp_post_author = a;
-                        }
-                    }
-                    System.out.println(temp_post.getTitle() + " " + temp_post_author.getEmail());
+                    //post에 저자 객체 Author가 붙어 있어 쉽게 조회 가능
+                    System.out.println(temp_post.getTitle() + " " + temp_post.getAuthor().getEmail());
                     break;
+
+//                    Author temp_post_author = null;
+//                    for(Author a : authors){
+//                        if(a.getId() == temp_post.getAuthor_id()){
+//                            temp_post_author = a;
+//                        }
+//                    }
+
             }
 
         }
@@ -88,6 +113,7 @@ class Author{
     private Long id;
     private String name;
     private String email;
+    //private List<Post> posts;
     static Long static_id = 0L;
     Author(String name, String email){
         static_id += 1;
@@ -113,15 +139,16 @@ class Post{
     private Long id;
     private String title;
     private String contents;
-    private Long author_id;
+    private Author author;
     static Long static_id = 0L;
-    Post(String title, String contents, Long author_id){
+    Post(Author author, String title, String contents){
         static_id += 1;
         this.id = static_id;
+        this.author = author;
         this.title = title;
         this.contents = contents;
-        this.author_id = author_id;
     }
+
 
     public Long getId() {
         return id;
@@ -135,7 +162,7 @@ class Post{
         return contents;
     }
 
-    public Long getAuthor_id() {
-        return author_id;
+    public Author getAuthor() {
+        return author;
     }
 }
