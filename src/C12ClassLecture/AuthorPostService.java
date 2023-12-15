@@ -46,6 +46,14 @@ public class AuthorPostService {
 
                     Post post1 = new Post(writer, title, contents);
                     posts.add(post1);
+//                    writer.getPosts().add(post1); -> 기능은 맞으나 가독성이 떨어짐
+//                    의미에 맞는 addPost함수 추가 후 사용
+                    writer.addPost(post1);
+
+                    // ** 세종님 아이디어 **
+                    // addPost를 생성자에 합친 코드 사용 한다면
+                    // posts.add(post1);에서 List<Post> posts에 생성과 동시에 post를 넣어주는 과정 수행.
+                    // writer.addPost(post1);없이 posts.add(post1); 만 작성해줘도 동작함
                     break;
 
 //                    회원목록조회
@@ -68,15 +76,9 @@ public class AuthorPostService {
                         }
                     }
 
-                    int count = 0;
-                    for(Post p : posts){
-                        if(p.getAuthor() == author) {
-                            count++;
-                        }
-                    }
                     System.out.println("회원명 : " + author.getName() +
                             "\n회원이메일 : " + author.getEmail() +
-                            "\n글 작성수" + count);
+                            "\n글 작성수" + author.getPosts().size());
 
                     break;
 
@@ -95,13 +97,6 @@ public class AuthorPostService {
                     System.out.println(temp_post.getTitle() + " " + temp_post.getAuthor().getEmail());
                     break;
 
-//                    Author temp_post_author = null;
-//                    for(Author a : authors){
-//                        if(a.getId() == temp_post.getAuthor_id()){
-//                            temp_post_author = a;
-//                        }
-//                    }
-
             }
 
         }
@@ -113,13 +108,17 @@ class Author{
     private Long id;
     private String name;
     private String email;
-    //private List<Post> posts;
+    private List<Post> posts;
     static Long static_id = 0L;
     Author(String name, String email){
         static_id += 1;
         this.id = static_id;
         this.name = name;
         this.email = email;
+        this.posts = new ArrayList<>(); //일반적으로 생성자 호출 시 초기화
+    }
+    void addPost(Post post){
+        this.posts.add(post);
     }
 
     public Long getId() {
@@ -134,6 +133,9 @@ class Author{
         return email;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
 }
 class Post{
     private Long id;
@@ -148,7 +150,17 @@ class Post{
         this.title = title;
         this.contents = contents;
     }
-
+//    ** 세종님 아이디어 **
+//    addPost를 생성자로 합치기 -> 자기 자신을 지칭하는 키워드 this 활용
+//    addPost(주소) 저장되기 때문에 먼저 생성해두고 나중에 값을 넣어줘도 영향을 받지 않음.
+//    Post(Author author, String title, String contents){
+//        static_id += 1;
+//        this.id = static_id;
+//        this.author = author;
+//        this.author.addPost(this);
+//        this.title = title;
+//        this.contents = contents;
+//    }
 
     public Long getId() {
         return id;
