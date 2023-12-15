@@ -1,6 +1,6 @@
 package C12ClassLecture;
 
-public class C1204ClassPractice {
+public class BankAccountService {
     public static void main(String[] args) {
         BankAccount ba1 = new BankAccount("1234");
         //ba1.setAccount_number("1234");
