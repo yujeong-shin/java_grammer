@@ -5,17 +5,7 @@ public class BankAccount {
     private int balance;
     BankAccount(String accountNumber){
         this.account_number = accountNumber;
-    }
-
-    public String getAccount_number() {
-        return account_number;
-    }
-
-    public void setAccount_number(String account_number) {
-        this.account_number = account_number;
-    }
-    public int checkBalance(){
-        return this.balance;
+        this.balance = 0;
     }
 
     public void setBalance(int balance) {
