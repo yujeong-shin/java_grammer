@@ -16,38 +16,27 @@ class AuthorService {
         if (author.getPasswd().length() <= 5) {
             throw new IllegalArgumentException("비밀번호가 너무 짧습니다.");
         }
+
+//        기존에 같은 email있느지 체크
+        Optional<Author> author1 = authorRepository.getAuthorByEmail(author.getEmail());
+        if(author1.isPresent()){
+            throw new IllegalArgumentException("이미 같은 회원이 존재합니다.");
+        }
+
         authorRepository.register(author);
     }
 
     Optional<Author> login(String email, String password) throws NoSuchElementException, IllegalArgumentException {
-        //찾아서 Author 객체 리턴
-        // DB에 있는 authors 다 가져오기
-        List<Author> Authors = authorRepository.getAuthors();
-        Optional<Author> findAuthor = Optional.empty();
-        boolean isExistAuthor = false;
-        boolean isRightPassword = false;
-        for(Author author : Authors){
 //        Authors에 로그인하고자 하는 email이 존재하지 않으면 예외 발생(NoSuchElementException)
-            if(author.getEmail().equals(email)){
-                isExistAuthor = true;
-                if(author.getPasswd().equals(password)){
-                    isRightPassword = true;
-                    findAuthor = Optional.of(author); //Optional 객체로 만들어 return
-                }
+        Optional<Author> author = authorRepository.getAuthorByEmail(email);
+        if(author.isPresent()){
+            if(author.get().getPasswd().equals(password)){
+                return author;
+            }else{
+                throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
             }
+        }else{
+            throw new NoSuchElementException("email이 존재하지 않습니다.");
         }
-
-        if(!isExistAuthor){
-            throw new NoSuchElementException("가입 정보가 없는 사용자입니다.");
-        }
-        if(!isRightPassword){
-            throw new IllegalArgumentException("틀린 비밀번호를 입력했습니다.");
-        }
-////        DB에 있는 author 가져오기
-//        Author xxx = authorRepository.getAuthorByEmail();
-
-
-//        Author 객체 찾아서 반환
-        return findAuthor;
     }
 }

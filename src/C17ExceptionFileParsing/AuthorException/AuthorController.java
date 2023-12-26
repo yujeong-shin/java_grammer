@@ -51,7 +51,6 @@ class AuthorController {
                     if(loginedAuthor.isPresent()){
                         System.out.println(loginedAuthor.get().getName() + "님 환영합니다.");
                     }
-//                    회원 정보가 없으면 try~catch에서 다 걸림
                     break;
 
             }

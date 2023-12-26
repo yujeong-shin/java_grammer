@@ -2,6 +2,7 @@ package C17ExceptionFileParsing.AuthorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 class AuthorRepository {
 //  메모리 DB에 데이터 추가/삭제 부분은 repository로 분리
@@ -18,7 +19,12 @@ class AuthorRepository {
         return authors;
     }
 
-    void getAuthorByEmail(){
-
+    Optional<Author> getAuthorByEmail(String email){
+        for(Author a : this.authors){
+            if(a.getEmail().equals(email)){
+                return Optional.of(a);
+            }
+        }
+        return Optional.empty();
     }
 }
