@@ -17,26 +17,24 @@ class AuthorService {
             throw new IllegalArgumentException("비밀번호가 너무 짧습니다.");
         }
 
-//        기존에 같은 email있느지 체크
+//        기존에 같은 email있으면 예외처리
         Optional<Author> author1 = authorRepository.getAuthorByEmail(author.getEmail());
         if(author1.isPresent()){
-            throw new IllegalArgumentException("이미 같은 회원이 존재합니다.");
+            throw new IllegalArgumentException("같은 사용자가 있습니다.");
         }
 
         authorRepository.register(author);
     }
 
-    Optional<Author> login(String email, String password) throws NoSuchElementException, IllegalArgumentException {
-//        Authors에 로그인하고자 하는 email이 존재하지 않으면 예외 발생(NoSuchElementException)
-        Optional<Author> author = authorRepository.getAuthorByEmail(email);
-        if(author.isPresent()){
-            if(author.get().getPasswd().equals(password)){
-                return author;
-            }else{
-                throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
-            }
-        }else{
-            throw new NoSuchElementException("email이 존재하지 않습니다.");
+    Author login(String email, String password) throws NoSuchElementException, IllegalArgumentException {
+        Optional<Author> author1 = authorRepository.getAuthorByEmail(email);
+        if(!author1.isPresent()){
+            throw new NoSuchElementException("회원 가입되지 않은 사용자입니다.");
         }
+
+        if(!author1.get().getPasswd().equals(password)){
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
+        }
+        return author1.get(); //비밀번호 일치하는 사용자 객체 리턴
     }
 }
